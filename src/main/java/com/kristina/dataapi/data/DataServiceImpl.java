@@ -1,9 +1,10 @@
 package com.kristina.dataapi.data;
 
+import com.kristina.dataapi.data.dto.CustomerMessageDTO;
 import com.kristina.dataapi.data.model.*;
-import com.kristina.dataapi.data.repository.DialogRepository;
+import com.kristina.dataapi.dialog.DialogService;
 import com.kristina.dataapi.data.repository.MessageRepository;
-import com.kristina.dataapi.exception.DialogNotFoundException;
+import com.kristina.dataapi.dialog.model.Dialog;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,29 +12,19 @@ import java.util.Optional;
 
 @Service
 public class DataServiceImpl implements DataService {
-    private final DialogRepository dialogRepository;
     private final MessageRepository messageRepository;
+    private final DialogService dialogService;
 
-    public DataServiceImpl(DialogRepository dialogRepository, MessageRepository messageRepository) {
-        this.dialogRepository = dialogRepository;
+    public DataServiceImpl(MessageRepository messageRepository, DialogService dialogService) {
         this.messageRepository = messageRepository;
+        this.dialogService = dialogService;
     }
 
     @Override
     public Message saveMessage(Long customerId, Long dialogId, Message message) {
-        Dialog dialog = getDialog(dialogId, customerId);
+        Dialog dialog = dialogService.getDialog(dialogId, customerId);
         message.setDialog(dialog);
         return messageRepository.save(message);
-    }
-
-    @Override
-    public Dialog getDialog(Long dialogId, Long customerId) {
-        return dialogRepository.findById(dialogId).orElseThrow(() -> new DialogNotFoundException());
-    }
-
-    @Override
-    public Dialog saveDialog(Dialog dialog) {
-        return dialogRepository.save(dialog);
     }
 
     @Override
@@ -42,11 +33,6 @@ public class DataServiceImpl implements DataService {
         messageRepository.deleteMessages(dialogId);
     }
 
-    @Override
-    public Dialog getDialogReference(Long dialogId) {
-        return dialogRepository
-                .getReferenceById(dialogId);
-    }
 
     @Override
     public CustomerMessageDTO retrieveData(Optional<Long> customerId, Optional<Language> language) {

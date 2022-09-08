@@ -1,6 +1,7 @@
 package com.kristina.dataapi.data.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kristina.dataapi.dialog.model.Dialog;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

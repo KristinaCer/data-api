@@ -1,5 +1,7 @@
-package com.kristina.dataapi.data.model;
+package com.kristina.dataapi.data.dto;
 
+
+import com.kristina.dataapi.data.model.Message;
 
 public class CustomerMessageDTO {
     Long customerId;

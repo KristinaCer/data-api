@@ -16,4 +16,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer save(Customer customerDTO) {
         return customerRepository.save(customerDTO);
     }
+
+    @Override
+    public Customer get(Long customerId) {
+        return customerRepository.getReferenceById(customerId);
+    }
 }

@@ -1,4 +1,4 @@
-package com.kristina.dataapi.data.model;
+package com.kristina.dataapi.dialog.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kristina.dataapi.customer.model.Customer;

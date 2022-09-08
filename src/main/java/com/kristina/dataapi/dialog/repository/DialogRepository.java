@@ -1,6 +1,6 @@
-package com.kristina.dataapi.data.repository;
+package com.kristina.dataapi.dialog.repository;
 
-import com.kristina.dataapi.data.model.Dialog;
+import com.kristina.dataapi.dialog.model.Dialog;
 import com.kristina.dataapi.data.model.Language;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

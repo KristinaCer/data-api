@@ -3,7 +3,8 @@ package com.kristina.dataapi.consent;
 import com.kristina.dataapi.consent.repository.ConsentRepository;
 import com.kristina.dataapi.data.DataService;
 import com.kristina.dataapi.consent.model.Consent;
-import com.kristina.dataapi.data.model.Dialog;
+import com.kristina.dataapi.dialog.DialogService;
+import com.kristina.dataapi.dialog.model.Dialog;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +15,12 @@ public class ConsentServiceImpl implements ConsentService {
 
     private final DataService dataService;
     private final ConsentRepository consentRepository;
+    private final DialogService dialogService;
 
-    public ConsentServiceImpl(DataService dataService, ConsentRepository consentRepository) {
+    public ConsentServiceImpl(DataService dataService, ConsentRepository consentRepository, DialogService dialogService) {
         this.dataService = dataService;
         this.consentRepository = consentRepository;
+        this.dialogService = dialogService;
     }
 
     @Override
@@ -27,9 +30,9 @@ public class ConsentServiceImpl implements ConsentService {
     }
 
     private Dialog saveConsent(Consent consent, Long dialogId) {
-        Dialog dialog = dataService.getDialogReference(dialogId);
+        Dialog dialog = dialogService.getDialogReference(dialogId);
         dialog.setConsent(consentRepository.save(consent));
-        Dialog savedDialog = dataService.saveDialog(dialog);
+        Dialog savedDialog = dialogService.saveDialog(dialog);
         return savedDialog;
     }
 

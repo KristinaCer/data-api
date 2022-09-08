@@ -1,6 +1,6 @@
 package com.kristina.dataapi.data;
 
-import com.kristina.dataapi.data.model.Dialog;
+import com.kristina.dataapi.dialog.model.Dialog;
 import com.kristina.dataapi.data.model.Language;
 import com.kristina.dataapi.data.model.Message;
 import org.springframework.http.ResponseEntity;

@@ -5,8 +5,10 @@ import com.kristina.dataapi.dialog.model.Dialog;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -15,13 +17,16 @@ import javax.persistence.*;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
 
     @Enumerated(EnumType.STRING)
     private Language language;
 
     private String text;
+
+    @CreationTimestamp
+    @JsonIgnore
+    private LocalDateTime createDateTime;
 
     @ManyToOne
     @JoinColumn(name = "dialog_id")

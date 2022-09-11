@@ -4,11 +4,12 @@ import com.kristina.dataapi.customer.CustomerService;
 import com.kristina.dataapi.customer.model.Customer;
 import com.kristina.dataapi.dialog.model.Dialog;
 import com.kristina.dataapi.dialog.repository.DialogRepository;
-import com.kristina.dataapi.exception.DialogNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class DialogServiceImpl implements DialogService{
+public class DialogServiceImpl implements DialogService {
     private final DialogRepository dialogRepository;
     private final CustomerService customerService;
 
@@ -16,9 +17,10 @@ public class DialogServiceImpl implements DialogService{
         this.dialogRepository = dialogRepository;
         this.customerService = customerService;
     }
+
     @Override
-    public Dialog getDialog(Long dialogId, Long customerId) {
-        return dialogRepository.findById(dialogId).orElseThrow(() -> new DialogNotFoundException());
+    public Optional<Dialog> getDialog(Long dialogId) {
+        return dialogRepository.findById(dialogId);
     }
 
     @Override

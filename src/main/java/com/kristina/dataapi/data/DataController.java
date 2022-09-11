@@ -1,14 +1,13 @@
 package com.kristina.dataapi.data;
 
-import com.kristina.dataapi.dialog.model.Dialog;
 import com.kristina.dataapi.data.model.Language;
 import com.kristina.dataapi.data.model.Message;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/data")
@@ -21,14 +20,21 @@ public class DataController {
     }
 
     @PostMapping("/{customerId}/{dialogId}")
-    public ResponseEntity<Message> save(@PathVariable Long customerId, @PathVariable Long dialogId, @RequestBody Message message) {
-        Message savedMessage = dataService.saveMessage(customerId, dialogId, message);
+    public ResponseEntity<Message> save(@PathVariable Long customerId,
+                                        @PathVariable Long dialogId,
+                                        @RequestBody Message message){
+        Message savedMessage = dataService.saveMessage(dialogId, message);
         return ResponseEntity.ok(savedMessage);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Dialog>> retrieveData(@RequestParam Optional<Long> customerId, @RequestParam Optional<Language> language) {
-        List<Dialog> data = dataService.retrieveData(customerId, language);
+    public ResponseEntity<Page<Message>> retrieveData(@RequestParam(required = false) Language language,
+                                                      @RequestParam(required = false) Long customerId,
+                                                      @RequestParam(defaultValue = "0") Integer pageNo,
+                                                      @RequestParam(defaultValue = "10") Integer pageSize,
+                                                      @RequestParam(defaultValue = "createDateTime") String sortBy) {
+        PageRequest paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Page<Message> data = dataService.retrieveData(language, customerId, paging);
         return ResponseEntity.ok(data);
     }
 }

@@ -15,7 +15,7 @@ Please find more information regarding the design decisions in the delivered PDF
 
 ## Run
 
-In the root folder :
+In the artifacts folder :
 
 ```console
  java -jar .\DataAPI-0.0.1-SNAPSHOT.jar

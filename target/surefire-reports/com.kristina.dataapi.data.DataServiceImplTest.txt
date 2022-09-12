@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.kristina.dataapi.data.DataServiceImplTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.049 s - in com.kristina.dataapi.data.DataServiceImplTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.936 s - in com.kristina.dataapi.data.DataServiceImplTest
